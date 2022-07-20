@@ -4,14 +4,17 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class StickerGenerator {
+public class GeradorDeFigurinhas {
 
-    public void create() throws Exception{
+    public void criar() throws Exception{
 
         //  leitura da imagem
-        BufferedImage originalImage = ImageIO.read(new File("entrada/filme.jpg"));
+        BufferedImage imagemOriginal = ImageIO.read(new File("entrada/filme.jpg"));
 
         //  cria nova imagem em memória com transparência e com tamanho novo
+        int largura = imagemOriginal.getWidth();
+        int altura = imagemOriginal.getHeight();
+        int novaAltura = altura + 200;
 
         //  copiar a imagem original para nova imagem (em memória)
 
