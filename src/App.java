@@ -12,30 +12,39 @@ public class App {
     public static void main(String[] args) throws Exception {
 
         //  fazer uma conexão HTTP e buscar os top 250 filmes
-        String url = "https://imdb-api.com/en/API/Top250Movies/k_9zt1zkfd";
+        //String url = "https://imdb-api.com/en/API/Top250Movies/k_9zt1zkfd";
+        String url = "https://api.nasa.gov/planetary/apod?api_key=HlQnYCLJ0Lp9j7qft1doxfMP9l6adZHEfKdmMCN7";
+
         URI endereco = URI.create(url);
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder(endereco).GET().build();
         HttpResponse<String> response = client.send(request,BodyHandlers.ofString());
         String body = response.body();
 
-        //  pegar apenas os dados que interessam (titulo, poster, classificação)
+        //  extrair apenas os dados que interessam (titulo, poster, classificação)
         var parser = new JsonParser();
-        List<Map<String, String>> listaDeFilmes = parser.parse(body);
+        List<Map<String, String>> listaDeConteudos = parser.parse(body);
         
         //  Exibir e manipular os dados
-        for (Map<String,String> filme : listaDeFilmes) {
+         
+        //for (Map<String,String> filme : listaDeFilmes) {
+        for (int i = 0; i < 3; i++){
 
-            String urlImagem = filme.get("image");
+            Map<String, String> filme = listaDeConteudos.get(i);
+
+            //String urlImagem = filme.get("image")
+            String urlImagem = filme.get("url")
+            .replaceAll("(@+)(.*).jpg$","$1.jpg");
+
             String titulo = filme.get("title");
 
             InputStream inputStream = new URL(urlImagem).openStream();
-            String nomeArquivo = titulo + ".png";
+            String nomeArquivo = "saida/" + titulo + ".png";
 
             GeradorDeFigurinhas geradora = new GeradorDeFigurinhas();
             geradora.criar(inputStream, nomeArquivo);
 
-            System.out.println(filme.get("title"));
+            System.out.println(titulo);
             System.out.println();
             /*System.out.println(filme.get("imDbRating"));
             System.out.println();          
