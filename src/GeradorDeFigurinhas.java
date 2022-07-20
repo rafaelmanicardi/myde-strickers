@@ -1,7 +1,10 @@
 import java.awt.Graphics2D;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.awt.Color;
+import java.awt.Font;
 
 import javax.imageio.ImageIO;
 
@@ -22,10 +25,16 @@ public class GeradorDeFigurinhas {
         Graphics2D graphics = (Graphics2D) novaImagem.getGraphics();
         graphics.drawImage(imagemOriginal, 0, 0, null);
 
+        // configurar a fonte
+        Font fonte = new Font(Font.SANS_SERIF, Font.BOLD, 70);
+        graphics.setColor(Color.ORANGE);
+        graphics.setFont(fonte);
+
         // escrever uma frase na nova imagem
-        ImageIO.write(novaImagem, "png", new File("saida/figurinha.png"));
+        graphics.drawString("DAHORA", 520, novaAltura - 100);
 
         //  escrever a nova imagem em um arquivo
+        ImageIO.write(novaImagem, "png", new File("saida/figurinha.png"));
 
     }
     public static void main(String[] args) throws Exception {
