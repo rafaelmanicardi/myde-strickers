@@ -10,7 +10,7 @@ public class App {
     public static void main(String[] args) throws Exception {
 
         //  fazer uma conexão HTTP e buscar os top 250 filmes
-        String url = "https://imdb-api.com/en/API/MostPopularMovies/k_9zt1zkfd";
+        String url = "https://imdb-api.com/en/API/Top250Movies/k_9zt1zkfd";
         URI endereco = URI.create(url);
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder(endereco).GET().build();
